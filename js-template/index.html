@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA Demo</title>
+    <script src="jquery.min.js"></script>
+
+    <script id="main-template" type="text/template">
+        <h1 class="demo">{{title}}</h1>
+        <p>{{content}}</p>
+    </script>
+
+    <script>
+        var template = $('#main-template').html();
+
+        function render(data) {
+            var html = template.replace("{{title}}", data[1]);
+            html = html.replace("{{content}}", data[2]);
+            $('#container').html(html);
+        }
+
+        $(function() {
+            $("#button").click(function(){
+                var keyword = $("#keyword").val();
+                var url = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + keyword + '&format=json&callback=wikiCallback';
+
+                $.ajax( {
+                    url: url,
+                    dataType: 'jsonp',
+                    success: function(data){
+                        render(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="keyword">
+    <input type="button" id="button" value="Search">
+    <div id="container">
+    </div>
+</body>
+</html>
