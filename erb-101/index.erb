@@ -1,0 +1,15 @@
+<%
+  @data = [
+    { :name => "ihower", :bio => "123", :time => Time.now },
+    { :name => "ihover", :bio => "456", :time => Time.now },
+    { :name => "bernard", :bio => "789", :time => Time.now }
+  ]
+%>
+
+<ul>
+
+<% @data.each do |p| %>
+  <li> <%= p[:name] %>: <%= p[:bio] %> at <%= p[:time] %></li>
+<% end %>
+
+</ul>
